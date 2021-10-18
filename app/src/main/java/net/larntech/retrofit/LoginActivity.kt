@@ -16,7 +16,6 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
-
     private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         var view = binding.root;
         setContentView(view)
         initData()
+
     }
 
     private fun initData(){
