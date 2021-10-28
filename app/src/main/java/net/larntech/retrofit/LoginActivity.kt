@@ -1,10 +1,9 @@
 package net.larntech.retrofit
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.google.gson.JsonObject
+import androidx.appcompat.app.AppCompatActivity
 import net.larntech.retrofit.apiclient.ApiClient
 import net.larntech.retrofit.databinding.ActivityLoginBinding
 import net.larntech.retrofit.model.request.AuthRequest
@@ -20,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
-        var view = binding.root;
+        val view = binding.root
         setContentView(view)
         initData()
 
@@ -28,10 +27,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initData(){
         binding.llNoAccount.setOnClickListener {
-            registerUser();
+            registerUser()
         }
         binding.btnLogin.setOnClickListener {
-            getInputs();
+            getInputs()
         }
     }
 
@@ -40,14 +39,14 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun getInputs(){
-        val username = binding.edUsername.text.toString();
-        val password = binding.edPassword.text.toString();
+    private fun getInputs() {
+        val username = binding.edUsername.text.toString()
+        val password = binding.edPassword.text.toString()
 
-        if(username.isNotEmpty() && password.isNotEmpty()){
-            authUser(username,password)
-        }else{
-            showToast("All inputs required ...");
+        if (username.isNotEmpty() && password.isNotEmpty()) {
+            authUser(username, password)
+        } else {
+            showToast("All inputs required ...")
         }
 
     }
@@ -57,17 +56,17 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun authUser(username:String, password: String){
-        val authUser = AuthRequest(username,password);
+        val authUser = AuthRequest(username, password)
         showToast("Please wait ...")
 
-        val apiCall = ApiClient.getService().authenticateUser(authUser);
+        val apiCall = ApiClient.getService().authenticateUser(authUser)
         apiCall.enqueue(object : Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if(response.isSuccessful) {
                     showToast("Authentication successful ...")
                     startDashboardActivity(response.body()!!.username)
                 }else {
-                    var error = JSONObject(response.errorBody()!!.charStream().readText())
+                    val error = JSONObject(response.errorBody()!!.charStream().readText())
                     showToast(error.toString())
                 }
             }

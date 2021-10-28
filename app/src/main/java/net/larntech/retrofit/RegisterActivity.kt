@@ -1,21 +1,18 @@
 package net.larntech.retrofit
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import net.larntech.retrofit.apiclient.ApiClient
 import net.larntech.retrofit.databinding.ActivityRegisterBinding
 import net.larntech.retrofit.model.request.RegisterUserRequest
 import net.larntech.retrofit.model.response.RegisterUserResponse
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import org.json.JSONObject
-
-
-
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -24,19 +21,19 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
-        val view = binding.root;
+        val view = binding.root
         setContentView(view)
-        initData();
+        initData()
     }
 
 
     private fun initData(){
         binding.llHaveAccount.setOnClickListener {
-            loginUser();
+            loginUser()
         }
 
         binding.btnRegister.setOnClickListener {
-            getInputs();
+            getInputs()
         }
 
     }
@@ -46,29 +43,28 @@ class RegisterActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun getInputs(){
-        val username = binding.edUsername.text.toString();
-        val email = binding.edEmail.text.toString();
+    private fun getInputs() {
+        val username = binding.edUsername.text.toString()
+        val email = binding.edEmail.text.toString()
         val password = binding.edPassword.text.toString()
         val cpassword = binding.edConfirmPassword.text.toString()
 
-        if(username.isNotBlank() && email.isNotEmpty() && password.isNotEmpty() && cpassword.isNotEmpty() ){
-            if(password == cpassword){
-                registerUser(username,email,password)
-            }else{
+        if (username.isNotBlank() && email.isNotEmpty() && password.isNotEmpty() && cpassword.isNotEmpty()) {
+            if (password == cpassword) {
+                registerUser(username, email, password)
+            } else {
                 showToast("Password and Confirm Password should be the same")
             }
 
         }else{
-            showToast("All inputs required ... ");
+            showToast("All inputs required ... ")
         }
 
     }
 
     private fun showToast( message: String){
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
-
 
     private fun registerUser(username: String, userEmail: String, userPassword: String){
         showToast("Please wait ...")
@@ -85,13 +81,13 @@ class RegisterActivity : AppCompatActivity() {
                     },1500)
                 }else{
                     val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
-                    showToast("Unable to register user ..."+jsonObj.toString())
+                    showToast("Unable to register user ..." + jsonObj.toString())
                 }
 
             }
 
             override fun onFailure(call: Call<RegisterUserResponse>, t: Throwable) {
-               showToast("Server Error: "+t.localizedMessage)
+                showToast("Server Error: " + t.localizedMessage)
             }
 
         })
