@@ -26,24 +26,25 @@
             android:textSize="22sp"
             android:layout_gravity="center"
             android:textStyle="bold"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-      <com.google.android.material.textfield.TextInputLayout
-          android:layout_width="match_parent"
-          android:layout_marginTop="50dp"
-          android:layout_height="wrap_content">
-          <com.google.android.material.textfield.TextInputEditText
-              android:id="@+id/edUsername"
-              android:layout_width="match_parent"
-              android:background="#0000"
-              android:hint="Username"
-              android:drawablePadding="16dp"
-              android:padding="16dp"
-              android:drawableStart="@drawable/ic_users"
-              android:inputType="text"
-              android:textColor="@color/colorInputText"
-              android:layout_height="wrap_content"/>
-      </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000"
+                android:drawableStart="@drawable/ic_users"
+                android:drawablePadding="16dp"
+                android:hint="Username"
+                android:inputType="text"
+                android:padding="16dp"
+                android:textColor="@color/colorInputText" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -51,8 +52,8 @@
             android:layout_height="wrap_content"
             app:passwordToggleContentDescription="password"
             app:passwordToggleEnabled="true"
-            app:passwordToggleTint="@color/colorAccent"
-            >
+            app:passwordToggleTint="@color/colorAccent">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edPassword"
                 android:layout_width="match_parent"
@@ -78,19 +79,24 @@
             android:id="@+id/llNoAccount"
             android:layout_width="wrap_content"
             android:orientation="horizontal"
+            android:layoutDirection="ltr"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:layout_height="wrap_content">
             <TextView
                 android:layout_width="wrap_content"
+                android:textSize="18sp"
                 android:text="Don't have an Account?"
                 android:layout_height="wrap_content"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:text=" Sign Up"
+                android:padding="7dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorText"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>

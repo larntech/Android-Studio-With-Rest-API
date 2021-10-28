@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">retrofit</string>
+    <string name="user_register">User Register</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register">REGISTER</string>
+    <string name="already_have_an_account">Already Have an Account?</string>
+    <string name="sign_in">Sign In</string>
 </resources>
