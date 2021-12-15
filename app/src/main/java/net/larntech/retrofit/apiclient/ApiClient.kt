@@ -16,9 +16,8 @@ object ApiClient {
             .addInterceptor(logger)
             .build()
 
-
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://api.larntech.net/")
+            .baseUrl("http://192.168.100.22:8000/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build();

@@ -60,15 +60,14 @@ class LoginActivity : AppCompatActivity() {
         val authUser = AuthRequest(username,password);
         showToast("Please wait ...")
 
-        val apiCall = ApiClient.getService().authenticateUser(authUser);
+        val apiCall = ApiClient.getService().authenticateUser(username,password);
         apiCall.enqueue(object : Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                if(response.isSuccessful) {
+                if(response.isSuccessful && response.body()!!.isSuccess == 1) {
                     showToast("Authentication successful ...")
                     startDashboardActivity(response.body()!!.username)
                 }else {
-                    var error = JSONObject(response.errorBody()!!.charStream().readText())
-                    showToast(error.toString())
+                    showToast(response.body()!!.message)
                 }
             }
 

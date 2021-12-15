@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".NewUserActivity">
+
     <LinearLayout
         android:layout_width="0dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,31 +17,33 @@
         android:orientation="vertical"
         android:layout_marginEnd="30dp"
         android:layout_height="wrap_content">
+
         <TextView
             android:layout_width="wrap_content"
             android:gravity="center"
             android:textColor="@color/colorText"
-            android:text="User Login"
+            android:text="New User Details"
             android:textSize="22sp"
             android:layout_gravity="center"
             android:textStyle="bold"
             android:layout_height="wrap_content"/>
-      <com.google.android.material.textfield.TextInputLayout
-          android:layout_width="match_parent"
-          android:layout_marginTop="50dp"
-          android:layout_height="wrap_content">
-          <com.google.android.material.textfield.TextInputEditText
-              android:id="@+id/edUsername"
-              android:layout_width="match_parent"
-              android:background="#0000"
-              android:hint="Username"
-              android:drawablePadding="16dp"
-              android:padding="16dp"
-              android:drawableStart="@drawable/ic_users"
-              android:inputType="text"
-              android:textColor="@color/colorInputText"
-              android:layout_height="wrap_content"/>
-      </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edUsername"
+                android:layout_width="match_parent"
+                android:background="#0000"
+                android:hint="Input Username"
+                android:textColor="@color/colorInputText"
+                android:drawablePadding="16dp"
+                android:padding="16dp"
+                android:drawableStart="@drawable/ic_users"
+                android:inputType="text"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -57,40 +60,22 @@
                 android:hint="Password"
                 android:drawablePadding="16dp"
                 android:padding="16dp"
-                android:textColor="@color/colorInputText"
                 android:drawableStart="@drawable/ic_backspace"
                 android:inputType="textPassword"
+                android:textColor="@color/colorInputText"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 
+
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnNewUser"
             android:layout_width="match_parent"
             android:layout_marginTop="50dp"
-            android:text="LOGIN"
+            android:text="NEW USER"
             android:layout_height="60dp"/>
 
-        <LinearLayout
-            android:id="@+id/llNoAccount"
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="Don't have an Account?"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:text=" Sign Up"
-                android:textStyle="bold"
-                android:textColor="@color/colorText"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
 
     </LinearLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

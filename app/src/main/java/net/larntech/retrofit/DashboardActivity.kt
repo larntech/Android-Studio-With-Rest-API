@@ -1,5 +1,6 @@
 package net.larntech.retrofit
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import net.larntech.retrofit.databinding.ActivityDashboardBinding
@@ -17,14 +18,25 @@ class DashboardActivity : AppCompatActivity() {
     }
 
     private fun initData(){
-        var username = ""
-       val intent = intent.extras;
-        if(intent != null){
-            username = intent.getString("data")!!;
+//        var username = ""
+//       val intent = intent.extras;
+//        if(intent != null){
+//            username = intent.getString("data")!!;
+//        }
+//
+//        binding.tvUsername.text = "Welcome: $username"
+
+        clickListener();
+    }
+
+    private fun clickListener(){
+        binding.fabButton.setOnClickListener {
+            showAddNewUser();
         }
+    }
 
-        binding.tvUsername.text = "Welcome: $username"
-
+    private fun showAddNewUser(){
+        startActivity(Intent(this,NewUserActivity::class.java))
     }
 
 }

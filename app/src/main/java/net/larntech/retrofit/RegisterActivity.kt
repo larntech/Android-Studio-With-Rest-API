@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.widget.Toast
 import net.larntech.retrofit.apiclient.ApiClient
 import net.larntech.retrofit.databinding.ActivityRegisterBinding
@@ -72,25 +73,25 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun registerUser(username: String, userEmail: String, userPassword: String){
         showToast("Please wait ...")
-        val apiCall = ApiClient.getService().registerUser(RegisterUserRequest(username,userEmail,"2021-10-18 05:54:29",userPassword))
+        val apiCall = ApiClient.getService().registerUser(username,userEmail,userPassword)
         apiCall.enqueue(object : Callback<RegisterUserResponse>{
             override fun onResponse(
                 call: Call<RegisterUserResponse>,
                 response: Response<RegisterUserResponse>
             ) {
-                if(response.isSuccessful){
-                    showToast("User registered successfully, Proceed to login ")
+                if(response.isSuccessful && response.body()!!.isSuccess == 1){
+                    showToast(response.body()!!.message)
                     Handler().postDelayed({
                                  loginUser()
                     },1500)
                 }else{
-                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
-                    showToast("Unable to register user ..."+jsonObj.toString())
+                    showToast(response.body()!!.message)
                 }
 
             }
 
             override fun onFailure(call: Call<RegisterUserResponse>, t: Throwable) {
+                Log.e(" fail "," error "+t.localizedMessage)
                showToast("Server Error: "+t.localizedMessage)
             }
 
