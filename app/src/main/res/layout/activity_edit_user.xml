@@ -1,9 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditUserActivity">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="30dp"
+        android:orientation="vertical"
+        android:layout_marginEnd="30dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/colorText"
+            android:text="Update User Details"
+            android:textSize="22sp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="50dp"
+            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edUsername"
+                android:layout_width="match_parent"
+                android:background="#0000"
+                android:enabled="false"
+                android:hint="Input Username"
+                android:textColor="@color/colorInputText"
+                android:drawablePadding="16dp"
+                android:padding="16dp"
+                android:drawableStart="@drawable/ic_users"
+                android:inputType="text"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            app:passwordToggleContentDescription="password"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/colorAccent"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edPassword"
+                android:layout_width="match_parent"
+                android:background="#0000"
+                android:hint="Password"
+                android:drawablePadding="16dp"
+                android:padding="16dp"
+                android:enabled="false"
+                android:drawableStart="@drawable/ic_backspace"
+                android:inputType="textPassword"
+                android:textColor="@color/colorInputText"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edDeviceId"
+                android:layout_width="match_parent"
+                android:background="#0000"
+                android:hint="DeviceId"
+                android:drawablePadding="16dp"
+                android:padding="16dp"
+                android:drawableStart="@drawable/ic_baseline_phone_android_24"
+                android:inputType="text"
+                android:textColor="@color/colorInputText"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edExpiryDate"
+                android:layout_width="match_parent"
+                android:background="#0000"
+                android:hint="Expiry Date"
+                android:drawablePadding="16dp"
+                android:padding="16dp"
+                android:enabled="false"
+                android:drawableStart="@drawable/ic_baseline_access_time_24"
+                android:inputType="text"
+                android:textColor="@color/colorInputText"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+
+            <RadioGroup
+                android:id="@+id/rgExpiryDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="1dp">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rbOneDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/pblue"
+                    android:text="1 Day"
+                    android:onClick="onRadioButtonClicked"
+                    android:theme="@style/RadioStyle" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rbThreeDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/pblue"
+                    android:text="3 Day"
+                    android:onClick="onRadioButtonClicked"
+                    android:theme="@style/RadioStyle" />
+
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rbOneWeek"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/pblue"
+                    android:text="1 Weeks"
+                    android:onClick="onRadioButtonClicked"
+                    android:theme="@style/RadioStyle" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rbOneMonth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:buttonTint="@color/pblue"
+                    android:text="1 Months"
+                    android:onClick="onRadioButtonClicked"
+                    android:theme="@style/RadioStyle" />
+
+
+            </RadioGroup>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btnUpdateUser"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="10dp"
+            android:text="UPDATE USER"
+            android:layout_height="60dp"/>
+
+            <Button
+                android:id="@+id/btnDeleteUser"
+                android:layout_width="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/colorAccent"
+                android:text="DELETE USER"
+                android:layout_height="60dp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
