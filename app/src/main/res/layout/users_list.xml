@@ -60,11 +60,12 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
         android:id="@+id/viewB"
         android:layout_width="match_parent"
-        android:layout_marginTop="5dp"
-        android:background="@color/background_cells"
+        android:layout_height="1dp"
         android:layout_below="@+id/rvImage"
-        android:layout_height="1dp"/>
+        android:layout_marginTop="5dp"
+        android:background="@color/white" />
 </RelativeLayout>

@@ -6,7 +6,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.tabs.TabLayoutMediator.TabConfigurationStrategy
 import net.larntech.retrofit.adapter.AllUsersAdapter
+import net.larntech.retrofit.adapter.TabChoiceAdapter
 import net.larntech.retrofit.network.apiclient.ApiClient
 import net.larntech.retrofit.databinding.ActivityDashboardBinding
 import net.larntech.retrofit.model.response.users.AllUsersResponse
@@ -22,6 +27,8 @@ class DashboardActivity : AppCompatActivity(), AllUsersAdapter.SelectedConsumer 
 
     private lateinit var allUsersAdapter: AllUsersAdapter;
 
+    private var adapter: TabChoiceAdapter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDashboardBinding.inflate(layoutInflater);
@@ -34,6 +41,7 @@ class DashboardActivity : AppCompatActivity(), AllUsersAdapter.SelectedConsumer 
         clickListener();
         setUpNewTrainerRecyclerView();
         getAllUsers();
+        setTabData();
     }
 
     private fun setUpNewTrainerRecyclerView() {
@@ -58,7 +66,6 @@ class DashboardActivity : AppCompatActivity(), AllUsersAdapter.SelectedConsumer 
     override fun selectedAllConsumers(userBean: AllUsersResponse.UsersBean) {
         startActivity(Intent(this, EditUserActivity::class.java).putExtra("user",userBean))
     }
-
 
     private fun getAllUsers(){
 
@@ -88,11 +95,36 @@ class DashboardActivity : AppCompatActivity(), AllUsersAdapter.SelectedConsumer 
 
     }
 
-
     private fun showToast( message: String){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show()
     }
 
+    fun setTabData() {
+        adapter = TabChoiceAdapter(this)
+        binding.viewPager.offscreenPageLimit = 3
+        binding.viewPager.adapter = adapter
+        TabLayoutMediator(
+            binding.tabLayout, binding.viewPager
+        ) { tab, position ->
+            when (position) {
+                0 -> tab.text = "All"
+                1 -> tab.text = "Active"
+                2 -> tab.text = "Expired"
+            }
+        }.attach()
+        binding.tabLayout.setOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                when (tab.position) {
+                    0 ->{}
+                    1 ->{}
+                    2 ->{}
+                }
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+    }
 
 
 

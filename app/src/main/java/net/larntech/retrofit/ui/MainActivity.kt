@@ -3,6 +3,7 @@ package net.larntech.retrofit.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import net.larntech.retrofit.databinding.ActivityMainBinding
 import net.larntech.retrofit.ui.auth.LoginActivity
 
