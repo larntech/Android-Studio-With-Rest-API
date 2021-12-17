@@ -1,17 +1,22 @@
-package net.larntech.retrofit
+package net.larntech.retrofit.ui.users
 
+import android.R
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import net.larntech.retrofit.apiclient.ApiClient
+import net.larntech.retrofit.ui.DashboardActivity
+import net.larntech.retrofit.network.apiclient.ApiClient
 import net.larntech.retrofit.databinding.ActivityEditUserBinding
-import net.larntech.retrofit.model.response.AllUsersResponse
-import net.larntech.retrofit.model.response.RegisterUserResponse
+import net.larntech.retrofit.model.response.users.AllUsersResponse
+import net.larntech.retrofit.model.response.users.DeleteUserResponse
+import net.larntech.retrofit.model.response.users.UpdateUserResponse
+import net.larntech.retrofit.utils.CommonUtills
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +38,7 @@ class EditUserActivity : AppCompatActivity() {
     }
 
     private fun initData(){
+        CommonUtills.backHomeToolbar(binding.toolbarV1,"",this,false)
         getIntentData();
         clickListener();
 
@@ -41,6 +47,10 @@ class EditUserActivity : AppCompatActivity() {
     private fun clickListener(){
         binding.btnUpdateUser.setOnClickListener {
             getInputs();
+        }
+
+        binding.btnDeleteUser.setOnClickListener {
+            deleteUser(userBean.id);
         }
     }
 
@@ -76,6 +86,7 @@ class EditUserActivity : AppCompatActivity() {
         binding.edUsername.setText(userBean.username)
         binding.edExpiryDate.setText(userBean.expiry)
         binding.edPassword.setText(userBean.password)
+        binding.edDeviceId.setText(userBean.deviceId)
 
     }
 
@@ -122,10 +133,10 @@ class EditUserActivity : AppCompatActivity() {
     private fun updateUser(id: String, username: String, userPassword: String, deviceId: String, userExpiry: String){
         showToast("Updating user ...")
         val apiCall = ApiClient.getService().updateUser(id,username,userPassword,deviceId,userExpiry)
-        apiCall.enqueue(object : Callback<RegisterUserResponse> {
+        apiCall.enqueue(object : Callback<UpdateUserResponse> {
             override fun onResponse(
-                call: Call<RegisterUserResponse>,
-                response: Response<RegisterUserResponse>
+                call: Call<UpdateUserResponse>,
+                response: Response<UpdateUserResponse>
             ) {
                 if(response.isSuccessful && response.body()!!.isSuccess == 1){
                     showToast(response.body()!!.message)
@@ -138,7 +149,38 @@ class EditUserActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<RegisterUserResponse>, t: Throwable) {
+            override fun onFailure(call: Call<UpdateUserResponse>, t: Throwable) {
+                Log.e(" fail "," error "+t.localizedMessage)
+                showToast("Server Error: "+t.localizedMessage)
+            }
+
+        })
+
+    }
+
+
+
+
+    private fun deleteUser(id: String){
+        showToast("Deleting user ...")
+        val apiCall = ApiClient.getService().deleteUser(id)
+        apiCall.enqueue(object : Callback<DeleteUserResponse> {
+            override fun onResponse(
+                call: Call<DeleteUserResponse>,
+                response: Response<DeleteUserResponse>
+            ) {
+                if(response.isSuccessful && response.body()!!.isSuccess == 1){
+                    showToast(response.body()!!.message)
+                    Handler().postDelayed({
+                        goToDashboard()
+                    },1500)
+                }else{
+                    showToast(response.body()!!.message)
+                }
+
+            }
+
+            override fun onFailure(call: Call<DeleteUserResponse>, t: Throwable) {
                 Log.e(" fail "," error "+t.localizedMessage)
                 showToast("Server Error: "+t.localizedMessage)
             }
@@ -168,8 +210,18 @@ class EditUserActivity : AppCompatActivity() {
     }
 
     private fun  goToDashboard(){
-        startActivity(Intent(this,DashboardActivity::class.java))
+        startActivity(Intent(this, DashboardActivity::class.java))
         finish()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }

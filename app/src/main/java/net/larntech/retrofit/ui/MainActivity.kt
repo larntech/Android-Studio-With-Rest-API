@@ -1,9 +1,10 @@
-package net.larntech.retrofit
+package net.larntech.retrofit.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import net.larntech.retrofit.databinding.ActivityMainBinding
+import net.larntech.retrofit.ui.auth.LoginActivity
 
 class MainActivity : AppCompatActivity() {
 

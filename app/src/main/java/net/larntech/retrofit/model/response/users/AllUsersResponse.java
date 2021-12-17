@@ -1,4 +1,4 @@
-package net.larntech.retrofit.model.response;
+package net.larntech.retrofit.model.response.users;
 
 import java.io.Serializable;
 import java.util.List;
@@ -52,6 +52,7 @@ public class AllUsersResponse implements Serializable {
         private String username;
         private String password;
         private String expiry;
+        private String deviceId;
 
         public String getId() {
             return id;
@@ -83,6 +84,14 @@ public class AllUsersResponse implements Serializable {
 
         public void setExpiry(String expiry) {
             this.expiry = expiry;
+        }
+
+        public String getDeviceId() {
+            return deviceId;
+        }
+
+        public void setDeviceId(String deviceId) {
+            this.deviceId = deviceId;
         }
     }
 }

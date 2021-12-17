@@ -1,8 +1,11 @@
-package net.larntech.retrofit.service
+package net.larntech.retrofit.network.service
 
-import net.larntech.retrofit.model.response.AllUsersResponse
-import net.larntech.retrofit.model.response.AuthResponse
-import net.larntech.retrofit.model.response.RegisterUserResponse
+import net.larntech.retrofit.model.response.users.AddUserResponse
+import net.larntech.retrofit.model.response.users.AllUsersResponse
+import net.larntech.retrofit.model.response.users.DeleteUserResponse
+import net.larntech.retrofit.model.response.auth.LoginResponse
+import net.larntech.retrofit.model.response.auth.RegisterUserResponse
+import net.larntech.retrofit.model.response.users.UpdateUserResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -22,17 +25,17 @@ fun registerUser(
 fun authenticateUser(
         @Field("username") username:String,
         @Field("password") password:String
-): Call<AuthResponse>
+): Call<LoginResponse>
 
 
 
 @FormUrlEncoded
-@POST("users/create.php")
+@POST("users/add.php")
 fun addUser(
     @Field("username") username: String,
     @Field("password") password:String,
     @Field("expiry") expiry: String
-): Call<RegisterUserResponse>
+): Call<AddUserResponse>
 
 
 @FormUrlEncoded
@@ -43,7 +46,7 @@ fun updateUser(
     @Field("password") password:String,
     @Field("deviceId") deviceId: String,
     @Field("expiry") expiry: String,
-): Call<RegisterUserResponse>
+): Call<UpdateUserResponse>
 
 
 @GET("users/getAll.php")
@@ -54,6 +57,6 @@ fun getAllUsers():Call<AllUsersResponse>
 @POST("users/delete.php")
     fun deleteUser(
         @Field("id") id: String,
-): Call<RegisterUserResponse>
+): Call<DeleteUserResponse>
 
 }

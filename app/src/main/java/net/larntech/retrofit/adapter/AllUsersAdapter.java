@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.larntech.retrofit.R;
-import net.larntech.retrofit.model.response.AllUsersResponse;
+import net.larntech.retrofit.model.response.users.AllUsersResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +52,8 @@ public class AllUsersAdapter extends RecyclerView.Adapter<AllUsersAdapter.Pendin
 
         AllUsersResponse.UsersBean usersBean = userBeanList.get(position);
 
-        String userName = "UserName : "+usersBean.getUsername();
-        String expiryDate = "Expiry Date : "+usersBean.getExpiry();
+        String userName = "Username : "+usersBean.getUsername();
+        String expiryDate = "Expired Date : "+usersBean.getExpiry();
         String prefix = usersBean.getUsername().substring(0,1);
 
 

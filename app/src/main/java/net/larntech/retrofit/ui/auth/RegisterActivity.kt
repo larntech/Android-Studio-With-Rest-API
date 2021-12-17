@@ -1,4 +1,4 @@
-package net.larntech.retrofit
+package net.larntech.retrofit.ui.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,14 +6,12 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
-import net.larntech.retrofit.apiclient.ApiClient
+import net.larntech.retrofit.network.apiclient.ApiClient
 import net.larntech.retrofit.databinding.ActivityRegisterBinding
-import net.larntech.retrofit.model.request.RegisterUserRequest
-import net.larntech.retrofit.model.response.RegisterUserResponse
+import net.larntech.retrofit.model.response.auth.RegisterUserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import org.json.JSONObject
 
 
 
@@ -43,7 +41,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun loginUser(){
-        startActivity(Intent(this,LoginActivity::class.java))
+        startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
 
@@ -72,7 +70,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
     private fun registerUser(username: String, userEmail: String, userPassword: String){
-        showToast("Please wait ...")
+        showToast("Registering, Please wait ...")
         val apiCall = ApiClient.getService().registerUser(username,userEmail,userPassword)
         apiCall.enqueue(object : Callback<RegisterUserResponse>{
             override fun onResponse(

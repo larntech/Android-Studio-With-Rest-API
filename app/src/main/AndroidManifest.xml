@@ -13,22 +13,22 @@
         android:theme="@style/Theme.Retrofit"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".EditUserActivity"
+            android:name=".ui.users.EditUserActivity"
             android:exported="false" />
         <activity
-            android:name=".NewUserActivity"
+            android:name=".ui.users.NewUserActivity"
             android:exported="false" />
         <activity
-            android:name=".DashboardActivity"
+            android:name=".ui.DashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.auth.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

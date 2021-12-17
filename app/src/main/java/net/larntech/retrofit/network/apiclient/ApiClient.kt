@@ -1,6 +1,6 @@
-package net.larntech.retrofit.apiclient
+package net.larntech.retrofit.network.apiclient
 
-import net.larntech.retrofit.service.Service
+import net.larntech.retrofit.network.service.Service
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

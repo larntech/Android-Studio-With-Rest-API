@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".ui.auth.RegisterActivity">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -22,20 +22,19 @@
             android:layout_width="wrap_content"
             android:gravity="center"
             android:textColor="@color/colorText"
-            android:text="User Register"
-            android:textSize="22sp"
+            android:text="XSHAAP Register"
+            android:textSize="18sp"
             android:layout_gravity="center"
-            android:textStyle="bold"
             android:layout_height="wrap_content"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_marginTop="50dp"
+            style="@style/AppTheme.App.TextInputLayout"
             android:layout_height="wrap_content">
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/edUsername"
                 android:layout_width="match_parent"
-                android:background="#0000"
                 android:hint="Username"
                 android:textColor="@color/colorInputText"
                 android:drawablePadding="16dp"
@@ -47,12 +46,12 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
+            style="@style/AppTheme.App.TextInputLayout"
             android:layout_height="wrap_content">
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/edEmail"
                 android:layout_width="match_parent"
-                android:background="#0000"
                 android:hint="Email"
                 android:drawablePadding="16dp"
                 android:padding="16dp"
@@ -65,16 +64,17 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
+            style="@style/AppTheme.App.TextInputLayout"
             android:layout_height="wrap_content"
             app:passwordToggleContentDescription="password"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorAccent"
             >
-            <com.google.android.material.textfield.TextInputEditText
+
+            <EditText
                 android:id="@+id/edPassword"
                 android:layout_width="match_parent"
-                android:background="#0000"
                 android:hint="Password"
                 android:drawablePadding="16dp"
                 android:padding="16dp"
@@ -87,16 +87,16 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
+            style="@style/AppTheme.App.TextInputLayout"
             android:layout_height="wrap_content"
             app:passwordToggleContentDescription="password"
             app:passwordToggleEnabled="true"
             app:passwordToggleTint="@color/colorAccent"
             >
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/edConfirmPassword"
                 android:layout_width="match_parent"
-                android:background="#0000"
                 android:hint="Confirm Password"
                 android:drawablePadding="16dp"
                 android:padding="16dp"

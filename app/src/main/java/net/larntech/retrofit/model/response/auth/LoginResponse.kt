@@ -1,6 +1,6 @@
-package net.larntech.retrofit.model.response
+package net.larntech.retrofit.model.response.auth
 
-data class AuthResponse(
+data class LoginResponse(
     val isSuccess: Int,
     val message: String,
     val username: String

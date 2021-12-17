@@ -1,15 +1,13 @@
-package net.larntech.retrofit
+package net.larntech.retrofit.ui.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.google.gson.JsonObject
-import net.larntech.retrofit.apiclient.ApiClient
+import net.larntech.retrofit.ui.DashboardActivity
+import net.larntech.retrofit.network.apiclient.ApiClient
 import net.larntech.retrofit.databinding.ActivityLoginBinding
-import net.larntech.retrofit.model.request.AuthRequest
-import net.larntech.retrofit.model.response.AuthResponse
-import org.json.JSONObject
+import net.larntech.retrofit.model.response.auth.LoginResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun registerUser(){
-        startActivity(Intent(this,RegisterActivity::class.java))
+        startActivity(Intent(this, RegisterActivity::class.java))
         finish()
     }
 
@@ -57,21 +55,18 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun authUser(username:String, password: String){
-        val authUser = AuthRequest(username,password);
-        showToast("Please wait ...")
-
+        showToast("Authentication, Please wait ...")
         val apiCall = ApiClient.getService().authenticateUser(username,password);
-        apiCall.enqueue(object : Callback<AuthResponse> {
-            override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
+        apiCall.enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if(response.isSuccessful && response.body()!!.isSuccess == 1) {
-                    showToast("Authentication successful ...")
-                    startDashboardActivity(response.body()!!.username)
+                        startDashboardActivity(response.body()!!.username)
                 }else {
                     showToast(response.body()!!.message)
                 }
             }
 
-            override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 showToast("An error occurred: "+t.localizedMessage)
             }
 

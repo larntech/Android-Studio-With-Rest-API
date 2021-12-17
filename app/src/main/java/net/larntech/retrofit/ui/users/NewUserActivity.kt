@@ -1,20 +1,23 @@
-package net.larntech.retrofit
+package net.larntech.retrofit.ui.users
 
+import android.R
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import net.larntech.retrofit.apiclient.ApiClient
+import net.larntech.retrofit.network.apiclient.ApiClient
 import net.larntech.retrofit.databinding.ActivityNewUserBinding
-import net.larntech.retrofit.model.response.RegisterUserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 import android.widget.RadioButton
+import net.larntech.retrofit.ui.DashboardActivity
+import net.larntech.retrofit.model.response.users.AddUserResponse
+import net.larntech.retrofit.utils.CommonUtills
 import java.text.SimpleDateFormat
 
 
@@ -34,6 +37,8 @@ class NewUserActivity : AppCompatActivity() {
 
 
     private fun initData(){
+        CommonUtills.backHomeToolbar(binding.toolbarV1,"",this,false)
+
         binding.btnNewUser.setOnClickListener {
             getInputs();
         }
@@ -61,12 +66,11 @@ class NewUserActivity : AppCompatActivity() {
 
     private fun addUser(username: String, userPassword: String, userExpiry: String){
         showToast("Please wait ...")
-        Log.e(" date ","expiry date"+userExpiry)
         val apiCall = ApiClient.getService().addUser(username,userPassword,userExpiry)
-        apiCall.enqueue(object : Callback<RegisterUserResponse>{
+        apiCall.enqueue(object : Callback<AddUserResponse>{
             override fun onResponse(
-                call: Call<RegisterUserResponse>,
-                response: Response<RegisterUserResponse>
+                call: Call<AddUserResponse>,
+                response: Response<AddUserResponse>
             ) {
                 if(response.isSuccessful && response.body()!!.isSuccess == 1){
                     showToast(response.body()!!.message)
@@ -79,8 +83,7 @@ class NewUserActivity : AppCompatActivity() {
 
             }
 
-            override fun onFailure(call: Call<RegisterUserResponse>, t: Throwable) {
-                Log.e(" fail "," error "+t.localizedMessage)
+            override fun onFailure(call: Call<AddUserResponse>, t: Throwable) {
                 showToast("Server Error: "+t.localizedMessage)
             }
 
@@ -138,8 +141,18 @@ class NewUserActivity : AppCompatActivity() {
     }
 
     private fun  goToDashboard(){
-        startActivity(Intent(this,DashboardActivity::class.java))
+        startActivity(Intent(this, DashboardActivity::class.java))
         finish()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 }

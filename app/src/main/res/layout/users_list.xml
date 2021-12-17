@@ -6,31 +6,33 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/rvImage"
         android:layout_width="match_parent"
-        android:padding="15dp"
-        android:layout_margin="2dp"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"
         android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/rvImaged"
             android:layout_width="30dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/users_bg"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_height="30dp">
+
             <TextView
                 android:id="@+id/prefix"
                 android:layout_width="wrap_content"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:text="T"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:layout_height="wrap_content"/>
+                android:text="T"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
         </RelativeLayout>
         <LinearLayout
             android:id="@+id/rvDetails"
             android:layout_width="wrap_content"
             app:layout_constraintTop_toTopOf="@+id/rvImage"
+            app:layout_constraintBottom_toBottomOf="@+id/rvImage"
             android:layout_marginStart="15dp"
             app:layout_constraintStart_toEndOf="@+id/rvImaged"
             android:orientation="vertical"
@@ -43,7 +45,6 @@
                 android:textColor="@color/black"
                 android:text="Username: "
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="2dp"
                 android:layout_height="wrap_content"/>
 
             <TextView
@@ -57,6 +58,13 @@
                 android:layout_marginTop="3dp"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <View
+        android:id="@+id/viewB"
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:background="@color/background_cells"
+        android:layout_below="@+id/rvImage"
+        android:layout_height="1dp"/>
 </RelativeLayout>
