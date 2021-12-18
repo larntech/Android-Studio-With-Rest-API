@@ -2,6 +2,8 @@ package net.larntech.retrofit.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.android.material.tabs.TabLayoutMediator.TabConfigurationStrategy
 import net.larntech.retrofit.adapter.AllUsersAdapter
 import net.larntech.retrofit.adapter.TabChoiceAdapter
 import net.larntech.retrofit.network.apiclient.ApiClient
@@ -20,6 +21,13 @@ import net.larntech.retrofit.ui.users.NewUserActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.*
+
+import android.view.MenuItem
+import android.R
+import androidx.appcompat.widget.SearchView
+
 
 class DashboardActivity : AppCompatActivity(), AllUsersAdapter.SelectedConsumer {
 
@@ -28,6 +36,8 @@ class DashboardActivity : AppCompatActivity(), AllUsersAdapter.SelectedConsumer 
     private lateinit var allUsersAdapter: AllUsersAdapter;
 
     private var adapter: TabChoiceAdapter? = null
+
+    private lateinit var allUsersResponse: List<AllUsersResponse.UsersBean>;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +52,12 @@ class DashboardActivity : AppCompatActivity(), AllUsersAdapter.SelectedConsumer 
         setUpNewTrainerRecyclerView();
         getAllUsers();
         setTabData();
+        setToolBar()
+    }
+
+    private fun setToolBar(){
+        setSupportActionBar(binding.toolbarV1);
+        supportActionBar!!.setDisplayShowTitleEnabled(false);
     }
 
     private fun setUpNewTrainerRecyclerView() {
@@ -77,6 +93,7 @@ class DashboardActivity : AppCompatActivity(), AllUsersAdapter.SelectedConsumer 
             override fun onResponse(call: Call<AllUsersResponse>, response: Response<AllUsersResponse>) {
                 if(response.isSuccessful && response.body()!!.isSuccess == 1){
                     if(response.body()!!.users.size > 0) {
+                        allUsersResponse = response.body()!!.users;
                         allUsersAdapter.setItems(response.body()!!.users)
                     }else{
                         binding.tvNoUserFound.visibility = View.VISIBLE
@@ -115,15 +132,113 @@ class DashboardActivity : AppCompatActivity(), AllUsersAdapter.SelectedConsumer 
         binding.tabLayout.setOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 when (tab.position) {
-                    0 ->{}
-                    1 ->{}
-                    2 ->{}
+                    0 ->{
+                        allUsersAdapter.setItems(filterAll())
+                    }
+                    1 ->{
+                        allUsersAdapter.setItems(filterActive())
+
+                    }
+                    2 ->{
+                        allUsersAdapter.setItems(filterExpired())
+
+                    }
                 }
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
+    }
+
+    private fun filterAll():List<AllUsersResponse.UsersBean>{
+       return allUsersResponse;
+    }
+
+    private fun filterActive():List<AllUsersResponse.UsersBean>{
+        val userFiltered = ArrayList<AllUsersResponse.UsersBean>()
+
+        for (allUser in allUsersResponse){
+            var expiryDate = allUser.expiry;
+
+            if (!isExpired(expiryDate)) {
+                Log.e(" !isE"," is !expired added ")
+                userFiltered.add(allUser)
+            }
+
+        }
+        return userFiltered;
+    }
+
+
+    private fun isExpired(date: String): Boolean {
+
+        //date format
+        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        formatter.isLenient = false
+
+        //current date
+        val curDate = Date()
+        val curMillis = curDate.time
+
+        //user date
+        val oldDate = formatter.parse(date)
+        val oldMillis = oldDate!!.time
+
+        return oldMillis <= curMillis
+
+    }
+
+
+
+    private fun filterExpired(): List<AllUsersResponse.UsersBean>{
+        val userFiltered = ArrayList<AllUsersResponse.UsersBean>()
+
+        for (allUser in allUsersResponse){
+            var expiryDate = allUser.expiry;
+
+            if (isExpired(expiryDate)) {
+                userFiltered.add(allUser)
+            }
+
+        }
+        return userFiltered;
+    }
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(net.larntech.retrofit.R.menu.menu,menu);
+
+        var menuItem = menu!!.findItem(net.larntech.retrofit.R.id.searchView);
+
+        var searchView = menuItem.actionView as SearchView
+
+        searchView.maxWidth = Int.MAX_VALUE
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                return  true;
+            }
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+                allUsersAdapter.filter.filter(p0);
+                return true
+            }
+
+        })
+
+
+
+        return true;
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id: Int = item.itemId
+        return if (id == net.larntech.retrofit.R.id.searchView) {
+            true
+        } else super.onOptionsItemSelected(item)
     }
 
 

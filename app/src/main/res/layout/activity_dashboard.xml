@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/background_cells"
+    android:background="@color/white"
     android:layout_height="match_parent"
     tools:context=".ui.DashboardActivity">
     <com.google.android.material.appbar.AppBarLayout
@@ -41,11 +41,12 @@
     <LinearLayout
         android:id="@+id/sepearting_tab"
         android:layout_width="0dp"
+        android:visibility="visible"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBar"
-        android:elevation="6dp"
+        android:background="@color/purple_200"
         android:orientation="vertical"
        >
 
@@ -56,14 +57,14 @@
             android:background="@drawable/radio_group_bg"
             android:paddingBottom="2dp"
             app:tabBackground="@drawable/button_selector"
-            app:tabIndicatorColor="@android:color/white"
+            app:tabIndicatorColor="@color/purple_200"
             app:tabIndicatorHeight="0dp"
             app:tabMode="fixed"
             app:tabGravity="fill"
             app:tabMaxWidth="0dp"
-            app:tabSelectedTextColor="@color/black"
+            app:tabSelectedTextColor="@color/colorText"
             app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
-            app:tabTextColor="@color/black"
+            app:tabTextColor="@color/white"
             app:tabUnboundedRipple="true"
             />
 
@@ -77,8 +78,6 @@
 
 
     </LinearLayout>
-
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
